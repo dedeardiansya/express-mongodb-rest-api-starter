@@ -31,10 +31,16 @@ const forgotPassword = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
+const resetPassword = catchAsync(async (req, res) => {
+  await authService.resetPassword(req.query.token, req.body.password)
+  res.status(httpStatus.NO_CONTENT).send()
+})
+
 export default {
   register,
   login,
   logout,
   refreshTokens,
   forgotPassword,
+  resetPassword,
 }
