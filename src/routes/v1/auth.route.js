@@ -12,6 +12,7 @@ router.delete('/logout', validate(authValidation.logout), authController.logout)
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens)
 router.post('/forgot-password', validate(authValidation.forgotPassword), authController.forgotPassword)
 router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword)
-router.get('/profile', auth(), authController.profile)
+
+router.get('/', auth(), authController.profile)
 
 export default router
