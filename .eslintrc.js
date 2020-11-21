@@ -6,5 +6,6 @@ module.exports = {
     'func-names': 'off',
     'consistent-return': 'off',
     'import/prefer-default-export': 'off',
+    'no-underscore-dangle': 'off',
   },
 }
