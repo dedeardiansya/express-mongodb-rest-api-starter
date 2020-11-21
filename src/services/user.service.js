@@ -14,7 +14,12 @@ const getUserByEmail = async (email) => {
   return User.findOne({ email })
 }
 
+const getUserById = async (id) => {
+  return User.findById(id)
+}
+
 export default {
   createUser,
   getUserByEmail,
+  getUserById,
 }

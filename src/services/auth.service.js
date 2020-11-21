@@ -1,5 +1,6 @@
 import httpStatus from 'http-status'
 import userService from './user.service'
+import tokenService from './token.service'
 import ApiError from '../utils/ApiError'
 import { Token } from '../models/index'
 import { tokenTypes } from '../config/tokens'
@@ -20,7 +21,22 @@ const logout = async (refreshToken) => {
   await refreshTokenDoc.remove()
 }
 
+const refreshAuth = async (refreshToken) => {
+  try {
+    const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH)
+    const user = await userService.getUserById(refreshTokenDoc.user)
+    if (!user) {
+      throw new Error()
+    }
+    await refreshTokenDoc.remove()
+    return tokenService.generateAuthTokens(user)
+  } catch (error) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate')
+  }
+}
+
 export default {
   loginUserWithEmailAndPassword,
   logout,
+  refreshAuth,
 }
