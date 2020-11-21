@@ -36,6 +36,10 @@ const resetPassword = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
+const profile = (req, res) => {
+  res.send(req.user)
+}
+
 export default {
   register,
   login,
@@ -43,4 +47,5 @@ export default {
   refreshTokens,
   forgotPassword,
   resetPassword,
+  profile,
 }

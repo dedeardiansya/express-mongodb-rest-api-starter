@@ -1,12 +1,12 @@
 export const roles = ['user', 'admin']
 
-const roleRights = new Map()
-roleRights.set(roles[0], [])
-roleRights.set(roles[1], [])
+const rights = new Map()
+rights.set(roles[0], [])
+rights.set(roles[1], [])
 
-const role = {
+export const roleRights = rights
+
+export default {
   roles,
   roleRights,
 }
-
-export default role
