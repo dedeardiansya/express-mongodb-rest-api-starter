@@ -3,5 +3,8 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': 'error',
+    'func-names': 'off',
+    'consistent-return': 'off',
+    'import/prefer-default-export': 'off',
   },
 }
