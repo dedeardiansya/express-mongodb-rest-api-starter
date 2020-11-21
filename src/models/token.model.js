@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import toJSON from './plugins/toJSON.plugin'
 import { tokenTypes } from '../config/tokens'
 
 const { Schema } = mongoose
@@ -33,6 +34,8 @@ const tokenSchema = new Schema(
     timestamps: true,
   }
 )
+
+tokenSchema.plugin(toJSON)
 
 const Token = mongoose.model('Token', tokenSchema)
 

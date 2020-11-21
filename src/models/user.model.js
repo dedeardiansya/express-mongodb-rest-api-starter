@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
+import toJSON from './plugins/toJSON.plugin'
 import { roles } from '../config/roles'
 
 const { Schema } = mongoose
@@ -44,6 +45,8 @@ const userSchema = new Schema(
     timestamps: true,
   }
 )
+
+userSchema.plugin(toJSON)
 
 userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } })
