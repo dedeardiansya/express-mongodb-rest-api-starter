@@ -1,8 +1,11 @@
 import jwt from 'jsonwebtoken'
 import moment from 'moment'
+import httpStatus from 'http-status'
 import config from '../config/config'
 import { Token } from '../models'
 import { tokenTypes } from '../config/tokens'
+import ApiError from '../utils/ApiError'
+import userService from './user.service'
 
 const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
   const payload = {
@@ -54,9 +57,21 @@ const verifyToken = async (token, type) => {
   return tokenDoc
 }
 
+const generateResetPasswordToken = async (email) => {
+  const user = await userService.getUserByEmail(email)
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this email')
+  }
+  const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes')
+  const resetPasswordToken = generateToken(user.id, expires, tokenTypes.RESET_PASSWORD)
+  await saveToken(resetPasswordToken, user.id, expires, tokenTypes.RESET_PASSWORD)
+  return resetPasswordToken
+}
+
 export default {
   generateToken,
   saveToken,
   generateAuthTokens,
   verifyToken,
+  generateResetPasswordToken,
 }

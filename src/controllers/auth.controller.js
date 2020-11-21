@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import catchAsync from '../utils/catchAsync'
-import { userService, tokenService, authService } from '../services'
+import { userService, tokenService, authService, emailService } from '../services'
 
 export const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body)
@@ -25,9 +25,16 @@ const refreshTokens = catchAsync(async (req, res) => {
   res.send({ ...tokens })
 })
 
+const forgotPassword = catchAsync(async (req, res) => {
+  const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email)
+  await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken)
+  res.status(httpStatus.NO_CONTENT).send()
+})
+
 export default {
   register,
   login,
   logout,
   refreshTokens,
+  forgotPassword,
 }
