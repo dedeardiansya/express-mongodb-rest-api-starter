@@ -2,6 +2,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import Joi from 'joi'
 import normalizePort from 'normalize-port'
+import { roles } from './roles'
 
 dotenv.config({ path: path.join(__dirname, '../../.env') })
 
@@ -19,6 +20,9 @@ const envVarsSchema = Joi.object()
     SMTP_USERNAME: Joi.string().description('username for email server'),
     SMTP_PASSWORD: Joi.string().description('password for email server'),
     EMAIL_FROM: Joi.string().description('the from field in the emails sent by the app'),
+    ADMIN_NAME: Joi.string().default('Super Admin'),
+    ADMIN_EMAIL: Joi.string().default('super@admin.com'),
+    ADMIN_PASSWORD: Joi.string().default('admin123'),
   })
   .unknown()
 
@@ -57,6 +61,12 @@ const config = {
       },
     },
     from: envVars.EMAIL_FROM,
+  },
+  admin: {
+    name: envVars.ADMIN_NAME,
+    email: envVars.ADMIN_EMAIL,
+    password: envVars.ADMIN_PASSWORD,
+    role: roles[0],
   },
 }
 
