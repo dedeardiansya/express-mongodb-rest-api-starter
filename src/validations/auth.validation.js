@@ -43,6 +43,12 @@ const resetPassword = {
   }),
 }
 
+const updateProfile = {
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+  }),
+}
+
 export default {
   register,
   login,
@@ -50,4 +56,5 @@ export default {
   refreshTokens,
   forgotPassword,
   resetPassword,
+  updateProfile,
 }

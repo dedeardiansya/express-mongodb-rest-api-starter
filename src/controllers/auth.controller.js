@@ -40,6 +40,11 @@ const profile = (req, res) => {
   res.send(req.user)
 }
 
+const updateProfile = catchAsync(async (req, res) => {
+  req.user = await userService.updateUserById(req.user.id, req.body)
+  res.send(req.user)
+})
+
 export default {
   register,
   login,
@@ -48,4 +53,5 @@ export default {
   forgotPassword,
   resetPassword,
   profile,
+  updateProfile,
 }
