@@ -49,6 +49,10 @@ const updateProfile = {
   }),
 }
 
+const changeEmail = {
+  body: Joi.object().keys({}),
+}
+
 export default {
   register,
   login,
@@ -57,4 +61,5 @@ export default {
   forgotPassword,
   resetPassword,
   updateProfile,
+  changeEmail,
 }

@@ -15,5 +15,6 @@ router.post('/reset-password', validate(authValidation.resetPassword), authContr
 
 router.get('/', auth(), authController.profile)
 router.put('/', auth(), validate(authValidation.updateProfile), authController.updateProfile)
+router.post('/change-email', auth(), validate(authValidation.changeEmail), authController.changeEmail)
 
 export default router

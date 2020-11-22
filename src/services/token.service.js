@@ -68,10 +68,18 @@ const generateResetPasswordToken = async (email) => {
   return resetPasswordToken
 }
 
+const generateUpdateEmailToken = async (user) => {
+  const expires = moment().add(config.jwt.updateEmailExpirationMinutes, 'minutes')
+  const updateEmailToken = generateToken(user.id, expires, tokenTypes.UPDATE_EMAIL)
+  await saveToken(updateEmailToken, user.id, expires, tokenTypes.UPDATE_EMAIL)
+  return updateEmailToken
+}
+
 export default {
   generateToken,
   saveToken,
   generateAuthTokens,
   verifyToken,
   generateResetPasswordToken,
+  generateUpdateEmailToken,
 }
