@@ -49,9 +49,24 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
   }
 }
 
+const updateEmail = async (updateEmailToken, newEmail) => {
+  try {
+    const updateEmailTokenDoc = await tokenService.verifyToken(updateEmailToken, tokenTypes.UPDATE_EMAIL)
+    const user = await userService.getUserById(updateEmailTokenDoc.user)
+    if (!user) {
+      throw new Error()
+    }
+    await Token.deleteMany({ user: user.id, type: tokenTypes.UPDATE_EMAIL })
+    await userService.updateUserById(user.id, { email: newEmail })
+  } catch (error) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Update email failed failed')
+  }
+}
+
 export default {
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
   resetPassword,
+  updateEmail,
 }

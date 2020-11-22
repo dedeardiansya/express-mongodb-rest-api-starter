@@ -53,6 +53,15 @@ const changeEmail = {
   body: Joi.object().keys({}),
 }
 
+const updateEmail = {
+  query: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+  }),
+}
+
 export default {
   register,
   login,
@@ -62,4 +71,5 @@ export default {
   resetPassword,
   updateProfile,
   changeEmail,
+  updateEmail,
 }

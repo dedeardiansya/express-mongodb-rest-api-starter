@@ -51,6 +51,11 @@ const changeEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
+const updateEmail = catchAsync(async (req, res) => {
+  await authService.updateEmail(req.query.token, req.body.email)
+  res.status(httpStatus.NO_CONTENT).send()
+})
+
 export default {
   register,
   login,
@@ -61,4 +66,5 @@ export default {
   profile,
   updateProfile,
   changeEmail,
+  updateEmail,
 }
