@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "start": "node build/index.js",
     "build": "babel ./src --out-dir ./build",
-    "start": "nodemon --exec babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js",
     "lint": "eslint .",
     "seed": "node ./build/seed.js"
   },
