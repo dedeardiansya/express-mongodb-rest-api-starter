@@ -1,6 +1,7 @@
 import express from 'express'
 import validate from '../../middlewares/validate'
 import auth from '../../middlewares/auth'
+import password from '../../middlewares/password'
 import authController from '../../controllers/auth.controller'
 import authValidation from '../../validations/auth.validation'
 
@@ -17,5 +18,6 @@ router.get('/', auth(), authController.profile)
 router.put('/', auth(), validate(authValidation.updateProfile), authController.updateProfile)
 router.post('/change-email', auth(), validate(authValidation.changeEmail), authController.changeEmail)
 router.put('/update-email', validate(authValidation.updateEmail), authController.updateEmail)
+router.put('/update-password', auth(), validate(authValidation.updatePassword), password, authController.updatePassword)
 
 export default router

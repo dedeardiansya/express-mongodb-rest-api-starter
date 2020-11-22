@@ -56,6 +56,11 @@ const updateEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send()
 })
 
+const updatePassword = catchAsync(async (req, res) => {
+  await userService.updateUserById(req.user.id, { password: req.body.new_password })
+  res.status(httpStatus.NO_CONTENT).send()
+})
+
 export default {
   register,
   login,
@@ -67,4 +72,5 @@ export default {
   updateProfile,
   changeEmail,
   updateEmail,
+  updatePassword,
 }
