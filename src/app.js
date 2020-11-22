@@ -12,6 +12,8 @@ import morgan from './config/morgan'
 import ApiError from './utils/ApiError'
 import { errorConverter, errorHandler } from './middlewares/error'
 import apiV1Route from './routes/v1'
+import { authLimiter } from './middlewares/rateLimiter'
+import config from './config/config'
 
 const app = express()
 
@@ -29,6 +31,10 @@ app.use(cookieParser())
 
 app.use(passport.initialize())
 passport.use('jwt', jwtStrategy)
+
+if (config.env === 'production') {
+  app.use('/api/v1/auth', authLimiter)
+}
 
 app.use('/api/v1', apiV1Route)
 
